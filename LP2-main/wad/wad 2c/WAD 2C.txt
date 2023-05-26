@@ -1,0 +1,87 @@
+To create an Angular application that performs user registration, user login, and displays user data on a profile component, follow these steps:
+
+1. Install Angular CLI:
+   - Open a terminal or command prompt.
+   - Run the following command to install Angular CLI globally:
+     ```
+     npm install -g @angular/cli
+     ```
+
+2. Create a new Angular project:
+   - Run the following command to create a new Angular project:
+     ```
+     ng new user-profile-app
+     ```
+
+3. Navigate to the project directory:
+   - Change into the project directory:
+     ```
+     cd user-profile-app
+     ```
+
+4. Generate components:
+   - Run the following commands to generate the necessary components:
+     ```
+     ng generate component registration
+     ng generate component login
+     ng generate component profile
+     ```
+
+5. Set up routing:
+   - Open the `src/app/app-routing.module.ts` file.
+   - Configure the routes for the components:
+     ```typescript
+     import { NgModule } from '@angular/core';
+     import { Routes, RouterModule } from '@angular/router';
+     import { RegistrationComponent } from './registration/registration.component';
+     import { LoginComponent } from './login/login.component';
+     import { ProfileComponent } from './profile/profile.component';
+     
+     const routes: Routes = [
+       { path: 'register', component: RegistrationComponent },
+       { path: 'login', component: LoginComponent },
+       { path: 'profile', component: ProfileComponent },
+       { path: '', redirectTo: '/register', pathMatch: 'full' },
+     ];
+     
+     @NgModule({
+       imports: [RouterModule.forRoot(routes)],
+       exports: [RouterModule]
+     })
+     export class AppRoutingModule { }
+     ```
+
+6. Implement user registration:
+   - Open the `src/app/registration/registration.component.html` file and add the necessary form inputs for registration.
+   - Implement the registration logic in the `src/app/registration/registration.component.ts` file.
+
+7. Implement user login:
+   - Open the `src/app/login/login.component.html` file and add the necessary form inputs for login.
+   - Implement the login logic in the `src/app/login/login.component.ts` file.
+
+8. Implement profile component:
+   - Open the `src/app/profile/profile.component.ts` file and add the necessary code to retrieve and display user data.
+
+9. Update app component template:
+   - Open the `src/app/app.component.html` file and update the template to include navigation links and a router outlet:
+     ```html
+     <nav>
+       <a routerLink="/register">Register</a>
+       <a routerLink="/login">Login</a>
+       <a routerLink="/profile">Profile</a>
+     </nav>
+     <router-outlet></router-outlet>
+     ```
+
+10. Run the application:
+    - Open a terminal or command prompt in the project directory.
+    - Run the following command to start the application:
+      ```
+      ng serve
+      ```
+
+11. Access the application:
+    - Open a web browser and navigate to `http://localhost:4200`.
+    - You should see the registration, login, and profile components rendered. Click on the links in the navigation to navigate between the components.
+
+This provides a basic outline to get started with an Angular application that performs user registration, login, and displays user data on a profile component. You can customize and extend the functionality based on your specific requirements. Remember to update the implementation and add necessary services for user authentication, data storage, and retrieval.

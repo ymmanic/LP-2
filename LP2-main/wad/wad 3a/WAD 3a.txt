@@ -1,0 +1,58 @@
+To create a Node.js application that serves a static website, you can follow these steps:
+
+1. Set up a new project:
+   - Create a new directory for your project.
+   - Open a terminal or command prompt and navigate to the project directory.
+   - Run the following command to initialize a new Node.js project:
+     ```
+     npm init -y
+     ```
+
+2. Install required dependencies:
+   - Run the following command to install the Express framework, which we'll use to serve the static website:
+     ```
+     npm install express
+     ```
+
+3. Create a new file named `server.js` in the project directory.
+
+4. Open `server.js` and add the following code:
+
+   ```javascript
+   const express = require('express');
+   const path = require('path');
+
+   const app = express();
+
+   // Serve static files
+   app.use(express.static(path.join(__dirname, 'public')));
+
+   // Start the server
+   const port = process.env.PORT || 3000;
+   app.listen(port, () => {
+     console.log(`Server started on port ${port}`);
+   });
+   ```
+
+   In the above code, we are using Express to create a server and serve the static files from a `public` directory relative to the current directory.
+
+5. Create a `public` directory in the project directory.
+
+6. Place your static website files (HTML, CSS, JavaScript, images, etc.) inside the `public` directory.
+
+7. Start the server:
+   - Open a terminal or command prompt in the project directory.
+   - Run the following command to start the server:
+     ```
+     node server.js
+     ```
+
+   You should see a message indicating that the server has started on the specified port (default: 3000).
+
+8. Access the static website:
+   - Open a web browser and navigate to `http://localhost:3000` (or the specified port).
+   - Your static website files should be served and displayed in the browser.
+
+Now your Node.js application is serving the static website files from the `public` directory. You can modify the code and the structure of your static website as needed, and the server will serve the updated files upon refreshing the page.
+
+Note: If you have any dynamic routes or additional server-side logic, you can extend the `server.js` file to handle those as well.

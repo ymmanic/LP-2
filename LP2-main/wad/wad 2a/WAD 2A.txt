@@ -1,0 +1,43 @@
+Here are the Git commands to create a repository and push your code to GitHub:
+
+1. Create a new repository on GitHub:
+   - Go to GitHub (https://github.com) and log in to your account.
+   - Click on the "+" icon in the top-right corner and select "New repository".
+   - Provide a repository name and any other desired settings, then click "Create repository".
+
+2. Initialize a local Git repository:
+   ```
+   git init
+   ```
+
+3. Add your files to the repository:
+   ```
+   git add .
+   ```
+
+   This command adds all the files in the current directory to the Git repository. If you want to add specific files, you can specify their names instead of using `.`.
+
+4. Commit the changes:
+   ```
+   git commit -m "Initial commit"
+   ```
+
+   This command creates a commit with a commit message. Make sure to provide a meaningful message that describes the changes in this commit.
+
+5. Add the remote repository URL:
+   ```
+   git remote add origin <remote_repository_url>
+   ```
+
+   Replace `<remote_repository_url>` with the URL of your GitHub repository. It should look like `https://github.com/your-username/your-repository.git`.
+
+6. Push the code to GitHub:
+   ```
+   git push -u origin master
+   ```
+
+   This command pushes the code to the `master` branch of the remote repository on GitHub. If you have a different branch you want to push, replace `master` with the branch name.
+
+7. Enter your GitHub username and password (or personal access token) when prompted to complete the push.
+
+After executing these commands, your code will be pushed to the GitHub repository, and you can view it on the corresponding GitHub page.

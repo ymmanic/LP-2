@@ -1,0 +1,105 @@
+To create four APIs using Node.js, Express.js, and MongoDB for CRUD operations on user registration, user login, and displaying user data on the profile component, follow these steps:
+
+1. Set up the project:
+   - Create a new directory for your project.
+   - Open a terminal or command prompt and navigate to the project directory.
+   - Run the following command to initialize a new Node.js project:
+     ```
+     npm init -y
+     ```
+
+2. Install required dependencies:
+   - Run the following command to install Express.js and other necessary packages:
+     ```
+     npm install express mongoose body-parser
+     ```
+
+3. Create a new file named `server.js` in the project directory.
+
+4. Open `server.js` and add the following code:
+
+   ```javascript
+   const express = require('express');
+   const mongoose = require('mongoose');
+   const bodyParser = require('body-parser');
+
+   const app = express();
+
+   // Middleware
+   app.use(bodyParser.json());
+
+   // Connect to MongoDB
+   mongoose
+     .connect('mongodb://localhost/user-profile-app', {
+       useNewUrlParser: true,
+       useUnifiedTopology: true,
+     })
+     .then(() => console.log('Connected to MongoDB'))
+     .catch((err) => console.error('Failed to connect to MongoDB', err));
+
+   // Define user schema and model
+   const userSchema = new mongoose.Schema({
+     name: String,
+     email: String,
+     password: String,
+   });
+
+   const User = mongoose.model('User', userSchema);
+
+   // Routes
+   // API for user registration (Create operation)
+   app.post('/register', (req, res) => {
+     const { name, email, password } = req.body;
+
+     const user = new User({ name, email, password });
+
+     user
+       .save()
+       .then(() => res.status(201).json({ message: 'User registered successfully' }))
+       .catch((err) => res.status(500).json({ error: 'Failed to register user' }));
+   });
+
+   // API for user login (Read operation)
+   app.post('/login', (req, res) => {
+     const { email, password } = req.body;
+
+     User.findOne({ email, password })
+       .then((user) => {
+         if (!user) {
+           return res.status(404).json({ error: 'User not found' });
+         }
+
+         res.json({ message: 'Login successful', user });
+       })
+       .catch((err) => res.status(500).json({ error: 'Failed to log in' }));
+   });
+
+   // API to get user data by ID (Read operation)
+   app.get('/profile/:userId', (req, res) => {
+     const userId = req.params.userId;
+
+     User.findById(userId)
+       .then((user) => {
+         if (!user) {
+           return res.status(404).json({ error: 'User not found' });
+         }
+
+         res.json({ user });
+       })
+       .catch((err) => res.status(500).json({ error: 'Failed to retrieve user data' }));
+   });
+
+   // API to update user data by ID (Update operation)
+   app.put('/profile/:userId', (req, res) => {
+     const userId = req.params.userId;
+     const { name, email, password } = req.body;
+
+     User.findByIdAndUpdate(userId, { name, email, password }, { new: true })
+       .then((user) => {
+         if (!user) {
+           return res.status(404).json({ error: 'User not found' });
+         }
+
+         res.json({ message: 'User updated successfully', user });
+       })
+       .catch((err) => res.status(500).json({
